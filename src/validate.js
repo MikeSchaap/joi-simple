@@ -16,8 +16,17 @@ module.exports = function Validate(input, label) {
     } else {
         try {
             var schema = Joi.object()
-                .keys({value: definition});
-            return Joi.validate({value: input}, schema);
+                .keys({
+                    dummie: Joi.string(), //fake
+                    value: definition
+                });
+            var check = Joi.validate({
+                dummie: 'ABBS', // fake
+                value: input
+            }, schema);
+
+            return !check['error'];
+
         } catch (err) {
             console.log(err);
             return false;
